@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import LoadingBar from 'react-redux-loading'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
+import PostPreview from './PostPreview'
 
 const CategoriesSideBar = ({ categories }) => (
   <div className='col-md-2' style={{ backgroundColor: 'green', color: 'white' }}>
@@ -22,8 +23,11 @@ class App extends Component {
           <h1>Readable App</h1>
           <div className='row'>
             <CategoriesSideBar />
-            <div className='col-md-10' style={{ backgroundColor: 'blue', color: 'white' }}>
-              {JSON.stringify(this.props.posts)}
+            <div className='col-md-10'>
+              {this.props.posts && this.props.posts.map(post => (
+                // todo: hide posts marked as deleted.
+                <PostPreview post={post} key={post.id} />
+              ))}
           </div>
           </div>
         </div>

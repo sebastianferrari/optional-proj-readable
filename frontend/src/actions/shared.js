@@ -7,7 +7,7 @@ export function handleInitialData() {
     dispatch(showLoading())
     return getAllPosts()
       .then(posts => {
-        //console.log({posts})
+        console.log({posts})
         dispatch(receivePosts(posts))
         dispatch(hideLoading())
       })

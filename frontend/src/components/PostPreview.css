@@ -1,0 +1,12 @@
+.postpreview-container {
+  border-bottom: 2px dotted lightgray;
+  padding-bottom: 5px;
+}
+
+.postpreview-footer {
+  font-size: smaller;
+}
+
+.postpreview-footer > div {
+  text-align: center;
+}
