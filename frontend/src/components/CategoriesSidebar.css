@@ -1,0 +1,8 @@
+.categories-sidebar-item {
+  padding: 10px;
+  text-transform: uppercase;
+}
+
+.categories-sidebar-item:before {
+  content: '\27A1 ';
+}

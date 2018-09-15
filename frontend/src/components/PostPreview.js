@@ -22,11 +22,13 @@ class Post extends Component {
       <Row className='postpreview-container'>
         <Col md={12}>
           <h2>{post.title}</h2>
-          <p>{post.body}</p>
+          <p className='postpreview-body'>{post.body}</p>
 
           <Row className='postpreview-footer'>
             <Col sm={3}>
-              <Badge>{post.commentCount}</Badge> comments
+              <Badge
+                style={{ backgroundColor: 'lightblue', color: 'black' }}
+              >{post.commentCount}</Badge> comments
             </Col>
             <Col sm={3}>
               <OverlayTrigger placement='top' overlay={catTooltip}>
@@ -39,7 +41,11 @@ class Post extends Component {
               </OverlayTrigger>
             </Col>
             <Col sm={3}>
-              Vote score <Badge>{post.voteScore}</Badge>
+              Vote score <Badge
+                style={ post.voteScore < 0
+                  ? { backgroundColor: 'salmon' }
+                  : { backgroundColor: 'lightgreen', color: 'black' } }
+              >{post.voteScore}</Badge>
             </Col>
           </Row>
         </Col>

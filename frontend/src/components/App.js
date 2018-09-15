@@ -3,12 +3,8 @@ import LoadingBar from 'react-redux-loading'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import PostPreview from './PostPreview'
-
-const CategoriesSideBar = ({ categories }) => (
-  <div className='col-md-2' style={{ backgroundColor: 'green', color: 'white' }}>
-    Categories
-  </div>
-)
+import CategoriesSidebar from './CategoriesSidebar'
+import { Row, Col } from 'react-bootstrap'
 
 class App extends Component {
   componentDidMount() {
@@ -21,15 +17,18 @@ class App extends Component {
         <LoadingBar />
         <div className='container'>
           <h1>Readable App</h1>
-          <div className='row'>
-            <CategoriesSideBar />
-            <div className='col-md-10'>
+          <Row>
+            <Col md={2}>
+              <CategoriesSidebar categories={this.props.categories} />
+            </Col>
+            <Col md={10}>
+              <h3>Posts</h3>
               {this.props.posts && this.props.posts.map(post => (
                 // todo: hide posts marked as deleted.
                 <PostPreview post={post} key={post.id} />
               ))}
-          </div>
-          </div>
+            </Col>
+          </Row>
         </div>
       </Fragment>
     );
@@ -42,9 +41,13 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-function mapStateToProps({ posts }) {
+function mapStateToProps({ posts, categories }) {
+  console.log({posts})
+  console.log({categories})
+
   return {
     posts,
+    categories,
     loading: posts.length === 0
   }
 }

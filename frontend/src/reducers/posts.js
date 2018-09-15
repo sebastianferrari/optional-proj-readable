@@ -3,7 +3,7 @@ import {
 } from '../actions/actionTypes'
 
 export default function posts(state = [], action) {
-  console.log('FROM ACTIONS ', action.posts)
+  console.log('FROM REDUCER ', action.posts)
   switch (action.type) {
     case RECEIVE_POSTS:
       return [
