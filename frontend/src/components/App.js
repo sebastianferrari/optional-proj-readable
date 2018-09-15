@@ -4,7 +4,20 @@ import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import PostPreview from './PostPreview'
 import CategoriesSidebar from './CategoriesSidebar'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, FormGroup, ControlLabel, FormControl, Form } from 'react-bootstrap'
+
+const SortForm = () => (
+  <Form inline>
+    <FormGroup controlId="formControlsSelect">
+      <ControlLabel style={{ marginRight: 5 }}>Sort</ControlLabel>
+      <FormControl componentClass="select" placeholder="...">
+        <option value="empty"></option>
+        <option value="voteScore">Vote Score</option>
+        <option value="NewestFirst">Newest First</option>
+      </FormControl>
+    </FormGroup>
+  </Form>
+)
 
 class App extends Component {
   componentDidMount() {
@@ -22,7 +35,14 @@ class App extends Component {
               <CategoriesSidebar categories={this.props.categories} />
             </Col>
             <Col md={10}>
-              <h3>Posts</h3>
+              <Row>
+                <Col xs={8}>
+                  <h3>Posts</h3>
+                </Col>
+                <Col xs={4} style={{ textAlign: 'right' }}>
+                  <SortForm />
+                </Col>
+              </Row>
               {this.props.posts && this.props.posts.map(post => (
                 // todo: hide posts marked as deleted.
                 <PostPreview post={post} key={post.id} />
@@ -42,8 +62,8 @@ const mapDispatchToProps = dispatch => {
 }
 
 function mapStateToProps({ posts, categories }) {
-  console.log({posts})
-  console.log({categories})
+  console.log({ posts })
+  console.log({ categories })
 
   return {
     posts,
