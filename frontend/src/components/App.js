@@ -6,6 +6,8 @@ import CategoriesSidebar from './CategoriesSidebar'
 import { Row, Col } from 'react-bootstrap'
 import PostList from './PostList'
 
+import CategoryPosts from './CategoryPosts'
+
 class App extends Component {
   state = {
     sortOrder: 'NewestFirst'
@@ -23,17 +25,24 @@ class App extends Component {
         <LoadingBar />
         <div className='container'>
           <h1>Readable App</h1>
-          <Row>
+
+          {/* <Row>
             <Col md={2}>
               <CategoriesSidebar categories={categories} />
             </Col>
             <Col md={10}>
               <PostList />
             </Col>
+          </Row> */}
+
+          <Row>
+            <Col md={12}>
+              <CategoryPosts category={'redux'} />
+            </Col>
           </Row>
         </div>
       </Fragment>
-    );
+    )
   }
 }
 

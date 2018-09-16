@@ -60,6 +60,10 @@ class PostList extends Component {
 }
 
 function mapStateToProps({ posts }, props) {
+  if (props.category && props.category !== '') {
+    posts = posts.filter(o => o.category === props.category)
+  }
+
   return {
     posts
   }
