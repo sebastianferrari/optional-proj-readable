@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react'
 import { Row, Col, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
 import PostPreview from './PostPreview'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import './PostList.css'
 
 class PostList extends Component {
   state = {
@@ -51,7 +53,9 @@ class PostList extends Component {
         </Row>
         {sortedList && sortedList.map(post => (
           // todo: hide posts marked as deleted.
-          <PostPreview post={post} key={post.id} />
+          <Link to={`/post/${post.id}`} className='postlist-item'>
+            <PostPreview post={post} key={post.id} />
+          </Link>
         ))
         }
       </Fragment>

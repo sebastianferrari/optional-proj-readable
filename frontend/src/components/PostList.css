@@ -1,0 +1,8 @@
+.postlist-item {
+  text-decoration: none;
+  color: initial;
+}
+
+.postlist-item:hover > div {
+  background-color: rgba(0, 0, 0, .04);
+}
