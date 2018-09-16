@@ -18,9 +18,11 @@ class PostComments extends Component {
 
     return (
       <div>
-        <h5>COMMENTS POST ID {postId}</h5>
+        <h5 style={{ borderBottomColor: 'gray', borderBottomStyle: 'solid', borderBottomWidth: 2 }}>
+          POST COMMENTS:
+        </h5>
         {comments.map(item => (
-          <Comment postId={postId} key={item.id} />
+          <Comment comment={item} key={item.id} />
         ))}
       </div>
     )
@@ -43,12 +45,3 @@ function mapStateToProps({ comments }, props) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostComments)
-
-// author: "thingtwo"
-// body: "Hi there! I am a COMMENT."
-// deleted: false
-// id: "894tuq4ut84ut8v4t8wun89g"
-// parentDeleted: false
-// parentId: "8xf0y6ziyjabvozdd253nd"
-// timestamp: 1468166872634
-// voteScore: 6

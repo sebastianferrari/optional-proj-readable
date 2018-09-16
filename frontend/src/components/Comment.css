@@ -1,0 +1,12 @@
+.comment-item {
+  border-bottom: 1px solid lightgray;
+  padding: 10px 0;
+  margin-left: 20px;
+}
+
+.comment-votescore {
+  width: 64px;
+  text-align: center;
+  font-size: large;
+  font-weight: bold;
+}

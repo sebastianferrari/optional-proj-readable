@@ -3,11 +3,12 @@ import {
 } from '../actions/actionTypes'
 
 export default function comments(state = [], action) {
-  // console.log('FROM REDUCER ', action)
+  // console.log('STATE FROM REDUCER ', state)
+  // console.log('ACTION FROM REDUCER ', action)
   switch (action.type) {
     case RECEIVE_COMMENTS:
       return [
-        ...state,
+        //...state,
         ...action.comments
       ]   
   
