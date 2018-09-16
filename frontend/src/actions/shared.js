@@ -8,8 +8,8 @@ export function handleInitialData() {
     dispatch(showLoading())
     return getInitialData()
       .then(({ posts, categories }) => {
-        console.log({ posts })
-        console.log({categories})
+        //console.log({ posts })
+        //console.log({categories})
         dispatch(receivePosts(posts))
         dispatch(receiveCategories(categories))
         dispatch(hideLoading())

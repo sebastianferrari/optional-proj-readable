@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './PostPreview.css'
 import { Badge, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap'
+import { getDateFromTimestamp } from '../utils/helpers'
 
 class Post extends Component {
   render() {
@@ -18,10 +19,21 @@ class Post extends Component {
       </Tooltip>
     )
 
+    const date = getDateFromTimestamp(post.timestamp)
+
     return (
       <Row className='postpreview-container'>
         <Col md={12}>
-          <h2>{post.title}</h2>
+          <Row>
+            <Col xs={9} sm={10}>
+              <h2>{post.title}</h2>
+            </Col>
+            <Col xs={3} sm={2}>
+              <div className='postpreview-timestamp'>
+                {date}
+              </div>
+            </Col>
+          </Row>
           <p className='postpreview-body'>{post.body}</p>
 
           <Row className='postpreview-footer'>

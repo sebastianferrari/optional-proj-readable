@@ -1,12 +1,39 @@
 import React, { Component, Fragment } from 'react'
 import { Row, Col, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
 import PostPreview from './PostPreview'
+import { connect } from 'react-redux'
 
 class PostList extends Component {
+  state = {
+    sort: 'NewestFirst'
+  }
+
+  handleChange = (e) => {
+    // console.log(e.target.value)
+    const value = e.target.value
+
+    this.setState({
+      sort: value
+    })
+  }
+
   render() {
+    const { posts } = this.props
+    const { sort } = this.state
+
+    if (posts.length === 0) {
+      return (
+        <div>Sorting Posts...</div>
+      )
+    }
+
+    const sortedList = sort === 'NewestFirst'
+      ? posts.sort((a, b) => b.timestamp - a.timestamp)
+      : posts.sort((a, b) => b.voteScore - a.voteScore)
+
     return (
       <Fragment>
-        <Row>
+        <Row style={{ borderBottomColor: 'lightgray', borderBottomStyle: 'solid', borderBottomWidth: 1 }}>
           <Col xs={8}>
             <h3>Posts</h3>
           </Col>
@@ -14,25 +41,28 @@ class PostList extends Component {
             <Form inline>
               <FormGroup controlId="formControlsSelect">
                 <ControlLabel style={{ marginRight: 5 }}>Sort</ControlLabel>
-                <FormControl componentClass="select">
+                <FormControl componentClass="select" onChange={this.handleChange}>
                   <option value="NewestFirst">Newest First</option>
-                  <option value="voteScore">Vote Score</option>
+                  <option value="VoteScore">Vote Score</option>
                 </FormControl>
               </FormGroup>
             </Form>
           </Col>
         </Row>
-        {
-          this.props.posts &&
-
-          this.props.posts.map(post => (
-            // todo: hide posts marked as deleted.
-            <PostPreview post={post} key={post.id} />
-          ))
+        {sortedList && sortedList.map(post => (
+          // todo: hide posts marked as deleted.
+          <PostPreview post={post} key={post.id} />
+        ))
         }
       </Fragment>
     )
   }
 }
 
-export default PostList
+function mapStateToProps({ posts }, props) {
+  return {
+    posts
+  }
+}
+
+export default connect(mapStateToProps)(PostList)

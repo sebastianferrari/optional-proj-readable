@@ -16,6 +16,8 @@ class App extends Component {
   }
 
   render() {
+    const { categories } = this.props
+
     return (
       <Fragment>
         <LoadingBar />
@@ -23,10 +25,10 @@ class App extends Component {
           <h1>Readable App</h1>
           <Row>
             <Col md={2}>
-              <CategoriesSidebar categories={this.props.categories} />
+              <CategoriesSidebar categories={categories} />
             </Col>
             <Col md={10}>
-              <PostList posts={this.props.posts} />
+              <PostList />
             </Col>
           </Row>
         </div>
@@ -42,8 +44,8 @@ const mapDispatchToProps = dispatch => {
 }
 
 function mapStateToProps({ posts, categories }) {
-  console.log({ posts })
-  console.log({ categories })
+  // console.log({ posts })
+  // console.log({ categories })
 
   return {
     posts,

@@ -24,6 +24,17 @@ const defaultData = {
     voteScore: -5,
     deleted: false,
     commentCount: 0
+  },
+  "6ni6ok3ym7mf1p43lnez": {
+    id: '6ni6ok3ym7mf1p43lnez',
+    timestamp: 1468479767191,
+    title: 'Learn Redux!',
+    body: 'Just kidding.',
+    author: 'thingone',
+    category: 'redux',
+    voteScore: 3,
+    deleted: false,
+    commentCount: 0
   }
 }
 

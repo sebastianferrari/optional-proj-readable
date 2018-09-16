@@ -14,3 +14,8 @@
 .postpreview-body {
   padding: 10px;
 }
+
+.postpreview-timestamp {
+  font-size: smaller;
+  margin-top: 20px;
+}
