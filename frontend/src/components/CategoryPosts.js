@@ -3,10 +3,6 @@ import { connect } from 'react-redux'
 import PostList from './PostList';
 
 class CategoryPosts extends Component {
-  state = {
-
-  }
-
   render() {
     const { category } = this.props
 
@@ -20,12 +16,12 @@ class CategoryPosts extends Component {
 }
 
 function mapStateToProps({ posts }, props) {
-  const { cat } = props.category
+  // const { cat } = props.category
+  const { category } = props.match.params
+  console.log({category})
 
   return {
-    posts: posts.filter(o => {
-      o.category === cat
-    })
+    category
   }
 }
 

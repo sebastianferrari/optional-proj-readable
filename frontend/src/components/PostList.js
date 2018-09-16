@@ -23,7 +23,7 @@ class PostList extends Component {
 
     if (posts.length === 0) {
       return (
-        <div>Sorting Posts...</div>
+        <div>NO POSTS</div>
       )
     }
 
