@@ -53,8 +53,8 @@ class PostList extends Component {
         </Row>
         {sortedList && sortedList.map(post => (
           // todo: hide posts marked as deleted.
-          <Link to={`/post/${post.id}`} className='postlist-item'>
-            <PostPreview post={post} key={post.id} />
+          <Link to={`/post/${post.id}`} className='postlist-item' key={post.id}>
+            <PostPreview post={post} />
           </Link>
         ))
         }

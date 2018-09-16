@@ -24,13 +24,17 @@ export function getInitialData() {
 export const getAllPosts = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json())
-    //.then(data => data.posts)
 
 // Categories
 export const getAllCategories = () =>
   fetch(`${api}/categories`, { headers })
     .then(res => res.json())
     .then(data => data.categories)
+
+// Comments
+export const getAllPostComments = (postId) =>
+  fetch(`${api}/posts/${postId}/comments`, { headers })
+    .then(res => res.json())
 
 // export const get = (bookId) =>
 //   fetch(`${api}/books/${bookId}`, { headers })

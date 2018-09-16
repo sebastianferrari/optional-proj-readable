@@ -16,9 +16,7 @@ class CategoryPosts extends Component {
 }
 
 function mapStateToProps({ posts }, props) {
-  // const { cat } = props.category
   const { category } = props.match.params
-  console.log({category})
 
   return {
     category
