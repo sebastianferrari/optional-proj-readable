@@ -1,5 +1,6 @@
 import {
-  RECEIVE_POSTS
+  RECEIVE_POSTS, 
+  DELETE_POST
 } from '../actions/actionTypes'
 
 export default function posts(state = [], action) {
@@ -9,7 +10,12 @@ export default function posts(state = [], action) {
       return [
         ...state,
         ...action.posts
-      ]   
+      ]
+    
+    case DELETE_POST:
+      return [
+        ...state.filter(o => o.id !== action.postId)
+      ]
   
     default:
       return state

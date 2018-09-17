@@ -25,6 +25,12 @@ export const getAllPosts = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json())
 
+export const deletePost = (postId) =>
+  fetch(`${api}/posts/${postId}`, {
+    method: 'DELETE',
+    headers: { ...headers }
+  }).then(res => res.json())
+
 // Categories
 export const getAllCategories = () =>
   fetch(`${api}/categories`, { headers })

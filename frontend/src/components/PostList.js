@@ -51,12 +51,15 @@ class PostList extends Component {
             </Form>
           </Col>
         </Row>
-        {sortedList && sortedList.map(post => (
-          // todo: hide posts marked as deleted.
-          <Link to={`/post/${post.id}`} className='postlist-item' key={post.id}>
-            <PostPreview post={post} />
-          </Link>
-        ))
+        {sortedList && 
+          sortedList
+            .filter(o => o.deleted === false)
+            .map(post => (
+              // todo: hide posts marked as deleted.
+              <Link to={`/post/${post.id}`} className='postlist-item' key={post.id}>
+                <PostPreview post={post} />
+              </Link>
+            ))
         }
       </Fragment>
     )

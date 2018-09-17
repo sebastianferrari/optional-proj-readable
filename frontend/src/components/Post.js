@@ -4,17 +4,47 @@ import { Row, Col, Glyphicon } from 'react-bootstrap'
 import { getDateFromTimestamp } from '../utils/helpers'
 import { Badge } from 'react-bootstrap'
 import PostComments from './PostComments'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import './Post.css'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
+import { handleDeletePost } from '../actions/posts';
 
 class Post extends Component {
-  handleDelete = () => {
-    console.log('handleDelete')
+  state = {
+    redirectToHome: false
+  }
 
-    prompt('sd')
+  handleDelete = () => {
+    //console.log('DELETING -> ', this.props.post.id)
+    const { post, dispatch } = this.props
+
+    confirmAlert({
+      title: 'Deleting Post...',
+      message: 'Are you sure?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            dispatch(handleDeletePost(post.id))
+            this.setState({
+              redirectToHome: true
+            })
+          }
+        },
+        {
+          label: 'No',
+          onClick: () => { }
+        }
+      ]
+    })
   }
 
   render() {
+    if (this.state.redirectToHome) {
+      return <Redirect to='/' />
+    }
+
     const { post } = this.props
     console.log({ post })
 
