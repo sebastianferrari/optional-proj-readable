@@ -10,3 +10,9 @@
   font-size: large;
   font-weight: bold;
 }
+
+.comment-date {
+  font-size: smaller;
+  text-align: right;
+  padding-right: 25px;
+}

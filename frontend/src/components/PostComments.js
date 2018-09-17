@@ -18,8 +18,15 @@ class PostComments extends Component {
 
     return (
       <div>
-        <h5 style={{ borderBottomColor: 'gray', borderBottomStyle: 'solid', borderBottomWidth: 2 }}>
-          POST COMMENTS:
+        <h5 style={{ 
+          borderBottomColor: 'gray', 
+          borderBottomStyle: 'solid', 
+          borderBottomWidth: 2,
+          marginBottom: 0,
+          paddingBottom: 5
+          }}
+        >
+          COMMENTS:
         </h5>
         {comments.map(item => (
           <Comment comment={item} key={item.id} />
@@ -39,7 +46,8 @@ const mapDispatchToProps = dispatch => {
 function mapStateToProps({ comments }, props) {
   const { postId } = props
   return {
-    comments: comments.filter(o => o.parentId === postId),
+    comments: comments.filter(o => o.parentId === postId && o.deleted === false)
+      .sort((a, b) => b.timestamp - a.timestamp),
     postId
   }
 }

@@ -8,7 +8,9 @@ export default function comments(state = [], action) {
   switch (action.type) {
     case RECEIVE_COMMENTS:
       return [
-        //...state,
+        //...state, This is temporal because in a real scenario 
+          // I need to replace just only existing items that
+          // were been modified. 
         ...action.comments
       ]   
   

@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-export default function NewPost() {
-  return (
-    <h2>NEW POST</h2>
-  )
+class NewPost extends Component {
+  state = {
+    editing: false
+  }
+
+  render() {
+    return (
+      <h2>NEW POST</h2>
+    )
+  }
 }
+
+export default NewPost

@@ -1,0 +1,24 @@
+.post-buttons {
+  float: right;
+}
+
+.post-buttons a {
+  padding-left: 10px;
+  padding-right: 5px;
+  text-decoration: none;
+  color: #555;
+}
+
+.post-buttons a:hover {
+  color: black;
+}
+
+.post-footer {
+  margin-bottom: 20px;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+}
+
+.post-footer-votescore {
+  margin-top: -2px;
+}
