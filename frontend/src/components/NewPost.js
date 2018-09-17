@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 class NewPost extends Component {
   state = {
@@ -6,10 +7,26 @@ class NewPost extends Component {
   }
 
   render() {
-    return (
-      <h2>NEW POST</h2>
-    )
+    const { post } = this.props
+    console.log({ post })
+    if (post) {
+      return (
+        <h2>EDITING POST</h2>
+      )
+    } else {
+      return (
+        <h2>NEW POST</h2>
+      )
+    }
   }
 }
 
-export default NewPost
+function mapStateToProps({ posts }, props) {
+  const { postId } = props.match.params
+  // console.log({postId})
+  return {
+    post: posts.filter(o => o.id === postId)[0]
+  }
+}
+
+export default connect(mapStateToProps)(NewPost)

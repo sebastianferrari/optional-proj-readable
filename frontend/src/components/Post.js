@@ -57,7 +57,7 @@ class Post extends Component {
     return (
       <Fragment>
         <div className='post-buttons'>
-          <Link to='/post/add'>
+          <Link to={`/post/edit/${post.id}`}>
             <Glyphicon glyph='edit' title='Edit Post' />
           </Link>
           <a role='button' onClick={this.handleDelete}>
