@@ -95,7 +95,6 @@ class Post extends Component {
   }
 }
 
-// should have controls to edit or delete the post
 // should have a control to add a new comment.
 // implement comment form however you want (inline, modal, etc.)
 // comments should also have controls for editing or deleting

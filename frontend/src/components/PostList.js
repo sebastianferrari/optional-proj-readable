@@ -56,7 +56,7 @@ class PostList extends Component {
             .filter(o => o.deleted === false)
             .map(post => (
               // todo: hide posts marked as deleted.
-              <Link to={`/post/${post.id}`} className='postlist-item' key={post.id}>
+              <Link to={`/posts/${post.id}`} className='postlist-item' key={post.id}>
                 <PostPreview post={post} />
               </Link>
             ))

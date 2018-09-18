@@ -16,9 +16,9 @@ const NavAndRoutes = () => (
     <div>
       <Route path='/' exact component={Home} />
       <Route path='/category/:category' exact component={CategoryPosts} />
+      <Route path='/posts/:postId' exact component={Post} />
       <Route path='/post/add' exact component={NewPost} />
       <Route path='/post/edit/:postId' exact component={NewPost} />
-      <Route path='/post/:postId' exact component={Post} />
     </div>
   </Fragment>
 )
