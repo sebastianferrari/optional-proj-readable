@@ -6,15 +6,14 @@ import Comment from './Comment'
 class PostComments extends Component {
   componentDidMount() {
     const { postId } = this.props
-    // console.log('CDM====> ', postId)
     
     if (postId !== '') {
       this.props.getComments(postId)
     }
   }
+
   render() {
-    const { postId, comments } = this.props
-    //if (this.props.comments.length)
+    const { comments } = this.props
 
     return (
       <div>
@@ -37,7 +36,6 @@ class PostComments extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  console.log({dispatch})
   return {
     getComments: (postId) => dispatch(handleReceiveComments(postId))
   }

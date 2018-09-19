@@ -15,3 +15,20 @@ export function getDateFromTimestamp(ts) {
 
   return `${mm}-${dd}-${yyyy}`
 }
+
+export function updatePostObjectInArray(array, action) {
+  return array.map(item => {
+      if(item.id !== action.id) {
+          // This isn't the item we care about - keep it as-is
+          return item;
+      }
+      
+      // Otherwise, this is the one we want - return an updated value
+      const { title, body } = action
+      return {
+          ...item,
+          title,
+          body
+      };    
+  });
+}

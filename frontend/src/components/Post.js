@@ -16,7 +16,6 @@ class Post extends Component {
   }
 
   handleDelete = () => {
-    //console.log('DELETING -> ', this.props.post.id)
     const { post, dispatch } = this.props
 
     confirmAlert({
@@ -101,7 +100,6 @@ class Post extends Component {
 
 function mapStateToProps({ posts }, props) {
   const { postId } = props.match.params
-  // console.log({postId})
 
   return {
     post: posts.filter(o => o.id === postId)[0]

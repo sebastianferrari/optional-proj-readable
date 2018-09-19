@@ -31,6 +31,17 @@ export const deletePost = (postId) =>
     headers: { ...headers }
   }).then(res => res.json())
 
+export const editPost = (postId, obj) =>
+  fetch(`${api}/posts/${postId}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(obj)
+  }).then(res => res.json())
+
+
 // Categories
 export const getAllCategories = () =>
   fetch(`${api}/categories`, { headers })

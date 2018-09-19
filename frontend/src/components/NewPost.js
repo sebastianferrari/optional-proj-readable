@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap'
+import { handleEditPost } from '../actions/posts'
+import { Redirect } from 'react-router-dom'
 
 function FieldGroup({ id, label, help, ...props }) {
   return (
@@ -20,17 +22,19 @@ class NewPost extends Component {
       title: '',
       body: '',
       author: ''
-    }
+    },
+    redirectToPost: false
   }
 
-  // componentDidMount() {
-  //   console.log('componentDidMount')
-  // }
+  componentDidMount() {
+    const post = this.props.post
 
-  // shouldComponentUpdate() {
-  //   console.log('shouldComponentUpdate')
-  //   return true
-  // }
+    if (post && post.id !== '') {
+      this.setState({
+        post
+      })
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     const { post } = nextProps
@@ -41,17 +45,6 @@ class NewPost extends Component {
       })
     }
   }
-
-  // componentDidUpdate() {
-  //   const { post } = this.props
-
-  //   if (post) {
-  //     // console.log('POST ====> ', this.props.post.id)
-  //     this.setState({
-  //       post
-  //     })
-  //   }
-  // }
 
   handleOnTitleChange = (e) => {
     let title = e.target.value
@@ -75,39 +68,53 @@ class NewPost extends Component {
     }))
   }
 
-  handleOnCategorySelect = (e) => {
-    let category = e.target.value
+  // handleOnCategorySelect = (e) => {
+  //   let category = e.target.value
 
-    this.setState(prevState => ({
-      post: {
-        ...prevState.post,
-        category
-      }
-    }))
-  }
+  //   this.setState(prevState => ({
+  //     post: {
+  //       ...prevState.post,
+  //       category
+  //     }
+  //   }))
+  // }
 
-  handleOnAuthorChange = (e) => {
-    let author = e.target.value
+  // handleOnAuthorChange = (e) => {
+  //   let author = e.target.value
 
-    this.setState(prevState => ({
-      post: {
-        ...prevState.post,
-        author
-      }
-    }))
-  }
+  //   this.setState(prevState => ({
+  //     post: {
+  //       ...prevState.post,
+  //       author
+  //     }
+  //   }))
+  // }
 
   handleSubmit = (e) => {
     e.preventDefault()
     console.log('Submit pressed!')
+
+    const { dispatch } = this.props
+    const { post } = this.state
+
+    console.log('SENDING POST ON SUBMIT ', post)
+    dispatch(handleEditPost(post))
+    
+    this.setState({
+      redirectToPost: true
+    })
   }
 
   render() {
+    if (this.state.redirectToPost) {
+      return <Redirect to={`/posts/${this.state.post.id}`} />
+    }
+
     const { post } = this.state
     console.log({ post })
 
     if (post.id !== '') {
-      console.log('POST TITLE => ', post.title)
+      // console.log('POST TITLE => ', post.title)
       return (
         <form>
           <h2>EDITING POST</h2>
@@ -139,7 +146,7 @@ class NewPost extends Component {
               onChange={this.handleOnBodyChange}/>
           </FormGroup>
 
-          <FormGroup controlId="formControlsSelect">
+          {/* <FormGroup controlId="formControlsSelect">
             <ControlLabel>Category</ControlLabel>
             <FormControl
               componentClass="select"
@@ -155,16 +162,16 @@ class NewPost extends Component {
                 )
               }
             </FormControl>
-          </FormGroup>
+          </FormGroup> */}
 
-          <FieldGroup
+          {/* <FieldGroup
             id='f-post-author'
             type='text'
             label='Author'
             placeholder='Enter an author'
             value={post.author}
             onChange={this.handleOnAuthorChange}
-          />
+          /> */}
 
           <Button 
             type='submit'
@@ -182,7 +189,8 @@ class NewPost extends Component {
 
 function mapStateToProps({ posts, categories }, props) {
   const { postId } = props.match.params
-  // console.log({postId})
+  console.log({postId})
+  console.log('POSTS -> ', posts)
   return {
     post: posts.filter(o => o.id === postId)[0],
     categories
@@ -191,6 +199,5 @@ function mapStateToProps({ posts, categories }, props) {
 
 export default connect(mapStateToProps)(NewPost)
 
-// Create/Edit View
-// should have a form to create new post or edit existing posts
-// when editing, existing data should be populated in the form
+// Create View
+// should have a form to create new post
