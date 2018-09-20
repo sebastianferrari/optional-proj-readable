@@ -16,6 +16,10 @@ export function getDateFromTimestamp(ts) {
   return `${mm}-${dd}-${yyyy}`
 }
 
+export function getTimestamp() {
+  return Date.now()
+}
+
 export function updatePostObjectInArray(array, action) {
   return array.map(item => {
       if(item.id !== action.id) {
@@ -31,4 +35,10 @@ export function updatePostObjectInArray(array, action) {
           body
       };    
   });
+}
+
+const uuidv1 = require('uuid/v1')
+
+export function getNewId() {
+  return uuidv1()
 }

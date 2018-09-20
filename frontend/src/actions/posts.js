@@ -1,11 +1,13 @@
 import { 
   deletePost as apiDeletePost,
-  editPost as apiEditPost
+  editPost as apiEditPost,
+  addPost as apiAddPost
 } from '../utils/api'
 import {
   RECEIVE_POSTS, 
   DELETE_POST, 
-  EDIT_POST
+  EDIT_POST,
+  ADD_POST
 } from './actionTypes'
 
 export function receivePosts(posts) {
@@ -47,6 +49,22 @@ export function handleEditPost(post) {
     return apiEditPost(post.id, obj)
       .then((post) => {
         dispatch(editPost(post))
+      })
+  }
+}
+
+function addPost(post) {
+  return {
+    type: ADD_POST,
+    post
+  }
+}
+
+export function handleAddPost(post) {
+  return (dispatch) => {
+    return apiAddPost(post)
+      .then(post => {
+        dispatch(addPost(post))
       })
   }
 }

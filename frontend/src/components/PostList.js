@@ -11,7 +11,6 @@ class PostList extends Component {
   }
 
   handleChange = (e) => {
-    // console.log(e.target.value)
     const value = e.target.value
 
     this.setState({
@@ -70,7 +69,7 @@ function mapStateToProps({ posts }, props) {
   if (props.category && props.category !== '') {
     posts = posts.filter(o => o.category === props.category)
   }
-
+  console.log('mapStateToProps -> ', props)
   return {
     posts
   }

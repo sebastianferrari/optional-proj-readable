@@ -34,7 +34,7 @@ class Post extends Component {
               </div>
             </Col>
           </Row>
-          <p className='postpreview-body'>{post.body}</p>
+          <p className='postpreview-body'>{post.body.length > 400 ? post.body.substring(0, 397) + '...' : post.body}</p>
 
           <Row className='postpreview-footer'>
             <Col sm={3}>
