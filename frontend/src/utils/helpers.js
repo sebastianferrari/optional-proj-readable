@@ -37,6 +37,23 @@ export function updatePostObjectInArray(array, action) {
   });
 }
 
+export function updateCommentObjectInArray(array, action) {
+  return array.map(item => {
+      if(item.id !== action.id) {
+          // This isn't the item we care about - keep it as-is
+          return item;
+      }
+      
+      // Otherwise, this is the one we want - return an updated value
+      const { timestamp, body } = action
+      return {
+          ...item,
+          timestamp,
+          body
+      };    
+  });
+}
+
 const uuidv1 = require('uuid/v1')
 
 export function getNewId() {

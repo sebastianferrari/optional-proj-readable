@@ -14,7 +14,7 @@ export function getInitialData() {
   return Promise.all([
     getAllPosts(),
     getAllCategories()
-  ]).then(([ posts, categories ]) => ({
+  ]).then(([posts, categories]) => ({
     posts,
     categories
   }))
@@ -63,28 +63,28 @@ export const getAllPostComments = (postId) =>
   fetch(`${api}/posts/${postId}/comments`, { headers })
     .then(res => res.json())
 
-// export const get = (bookId) =>
-//   fetch(`${api}/books/${bookId}`, { headers })
-//     .then(res => res.json())
-//     .then(data => data.book)
+export const addComment = (comment) =>
+  fetch(`${api}/comments`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(comment)
+  }).then(res => res.json())
 
-// export const update = (book, shelf) =>
-//   fetch(`${api}/books/${book.id}`, {
-//     method: 'PUT',
-//     headers: {
-//       ...headers,
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({ shelf })
-//   }).then(res => res.json())
+export const deleteComment = (commentId) =>
+  fetch(`${api}/comments/${commentId}`, {
+    method: 'DELETE',
+    headers: { ...headers }
+  }).then(res => res.json())
 
-// export const search = (query) =>
-//   fetch(`${api}/search`, {
-//     method: 'POST',
-//     headers: {
-//       ...headers,
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({ query })
-//   }).then(res => res.json())
-//     .then(data => data.books)
+export const editComment = (commentId, obj) =>
+  fetch(`${api}/comments/${commentId}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(obj)
+  }).then(res => res.json())

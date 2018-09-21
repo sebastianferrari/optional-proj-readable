@@ -1,8 +1,16 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
 import {
-  RECEIVE_COMMENTS
+  RECEIVE_COMMENTS,
+  ADD_COMMENT,
+  DELETE_COMMENT,
+  EDIT_COMMENT
 } from './actionTypes'
-import { getAllPostComments } from '../utils/api';
+import { 
+  getAllPostComments,
+  addComment as apiAddComment,
+  deleteComment as apiDeleteComment,
+  editComment as apiEditComment
+} from '../utils/api';
 
 function receiveComments(comments) {
   return {
@@ -20,6 +28,58 @@ export function handleReceiveComments(postId) {
         // console.log({comments})
         dispatch(receiveComments(comments))
         dispatch(hideLoading())
+      })
+  }
+}
+
+function addComment(comment) {
+  return {
+    type: ADD_COMMENT,
+    comment
+  }
+}
+
+export function handleAddComment(comment) {
+  return (dispatch) => {
+    return apiAddComment(comment)
+      .then(comment => {
+        dispatch(addComment(comment))
+      })
+  }
+}
+
+function deleteComment(commentId) {
+  return {
+    type: DELETE_COMMENT,
+    commentId
+  }
+}
+
+export function handleDeleteComment(commentId) {
+  return (dispatch) => {
+    return apiDeleteComment(commentId)
+      .then(comment => {
+        dispatch(deleteComment(comment.id))
+      })
+  }
+}
+
+function editComment(comment) {
+  return {
+    type: EDIT_COMMENT,
+    comment
+  }
+}
+
+export function handleEditComment(comment) {
+  return (dispatch) => {
+    const obj = {
+      title: comment.timestamp,
+      body: comment.body
+    }
+    return apiEditComment(comment.id, obj)
+      .then((comment) => {
+        dispatch(editComment(comment))
       })
   }
 }

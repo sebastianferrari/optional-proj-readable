@@ -3,10 +3,10 @@ import './PostPreview.css'
 import { Badge, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { getDateFromTimestamp } from '../utils/helpers'
 
-class Post extends Component {
+class PostPreview extends Component {
   render() {
     const post = this.props.post
-
+    
     const catTooltip = (
       <Tooltip id='category-tootip'>
         Category
@@ -66,4 +66,4 @@ class Post extends Component {
   }
 }
 
-export default Post
+export default PostPreview
