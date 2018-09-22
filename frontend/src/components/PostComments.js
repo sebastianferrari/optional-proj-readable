@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleReceiveComments, handleAddComment } from '../actions/comments'
 import Comment from './Comment'
-import { Glyphicon, Button, Modal, FormGroup, FormControl, ControlLabel, Row, Col } from 'react-bootstrap'
+import { Glyphicon, Button, Modal, FormGroup, FormControl, ControlLabel, Row, Col, Badge } from 'react-bootstrap'
 import { getNewId, getTimestamp } from '../utils/helpers'
 
 class PostComments extends Component {
@@ -82,7 +82,9 @@ class PostComments extends Component {
           borderBottomWidth: 2, marginBottom: 0, paddingBottom: 5 }}
         >
           <Col xs={8}>
-            <h5>COMMENTS:</h5>
+            <Badge style={{ backgroundColor: 'lightblue', color: 'black' }}>
+              {comments.length}
+            </Badge> comments
           </Col>
           <Col xs={4} className='text-right'>
             <Button bsStyle="success" onClick={this.handleOpen}>
