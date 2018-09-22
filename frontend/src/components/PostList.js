@@ -54,7 +54,7 @@ class PostList extends Component {
           sortedList
             .filter(o => o.deleted === false)
             .map(post => (
-              <Link to={`/posts/${post.id}`} className='postlist-item' key={post.id}>
+              <Link to={`/${post.category}/${post.id}`} className='postlist-item' key={post.id}>
                 <PostPreview post={post} />
               </Link>
             ))

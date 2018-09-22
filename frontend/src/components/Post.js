@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Row, Col, Glyphicon, Badge } from 'react-bootstrap'
+import { Row, Col, Glyphicon, Badge, ButtonToolbar, Button } from 'react-bootstrap'
 import { getDateFromTimestamp } from '../utils/helpers'
 import PostComments from './PostComments'
 import { Link, Redirect } from 'react-router-dom'
 import './Post.css'
 import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'
-import { handleDeletePost } from '../actions/posts';
+import { handleDeletePost, handleVotePost } from '../actions/posts';
 
 class Post extends Component {
   state = {
@@ -38,6 +38,24 @@ class Post extends Component {
     })
   }
 
+  handleUpVote = (e) => {
+    e.preventDefault()
+    const option = 'upVote'
+    this.vote(option)
+  }
+
+  handleDownVote = (e) => {
+    e.preventDefault()
+    const option = 'downVote'
+    this.vote(option)
+  }
+
+  vote = (option) => {
+    const { post } = this.props
+
+    this.props.votePost(post.id, option)
+  }
+
   render() {
     if (this.state.redirectToHome) {
       return <Redirect to='/' />
@@ -53,14 +71,16 @@ class Post extends Component {
 
     return (
       <Fragment>
-        <div className='post-buttons'>
-          <Link to={`/post/edit/${post.id}`}>
+        <ButtonToolbar className='pull-right'>
+          <Button bsSize='xsmall' onClick={this.handleUpVote}><Glyphicon glyph='thumbs-up' /></Button>
+          <Button bsSize='xsmall' onClick={this.handleDownVote}><Glyphicon glyph='thumbs-down' /></Button>
+          <Link to={`/post/edit/${post.id}`} style={{ padding: 10}}>
             <Glyphicon glyph='edit' title='Edit Post' />
           </Link>
           <a role='button' onClick={this.handleDelete}>
             <Glyphicon glyph='trash' title='Delete Post' />
           </a>
-        </div>
+        </ButtonToolbar>
 
         <Row>
           <Col xs={12} md={10} mdOffset={1}>
@@ -92,6 +112,12 @@ class Post extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    votePost: (postId, option) => dispatch(handleVotePost(postId, option))
+  }
+}
+
 function mapStateToProps({ posts }, props) {
   const { postId } = props.match.params
 
@@ -100,4 +126,4 @@ function mapStateToProps({ posts }, props) {
   }
 }
 
-export default connect(mapStateToProps)(Post)
+export default connect(mapStateToProps, mapDispatchToProps)(Post)
