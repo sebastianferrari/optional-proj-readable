@@ -51,6 +51,16 @@ export const addPost = (post) =>
     body: JSON.stringify(post)
   }).then(res => res.json())
 
+export const votePost = (postId, option) =>
+  fetch(`${api}/posts/${postId}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(option)
+  }).then(res => res.json())
+
 
 // Categories
 export const getAllCategories = () =>
@@ -87,4 +97,14 @@ export const editComment = (commentId, obj) =>
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(obj)
+  }).then(res => res.json())
+
+export const voteComment = (commentId, option) =>
+  fetch(`${api}/comments/${commentId}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(option)
   }).then(res => res.json())

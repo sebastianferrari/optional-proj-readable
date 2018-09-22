@@ -1,13 +1,15 @@
 import { 
   deletePost as apiDeletePost,
   editPost as apiEditPost,
-  addPost as apiAddPost
+  addPost as apiAddPost,
+  votePost as apiVotePost
 } from '../utils/api'
 import {
   RECEIVE_POSTS, 
   DELETE_POST, 
   EDIT_POST,
-  ADD_POST
+  ADD_POST,
+  VOTE_POST
 } from './actionTypes'
 
 export function receivePosts(posts) {
@@ -65,6 +67,26 @@ export function handleAddPost(post) {
     return apiAddPost(post)
       .then(post => {
         dispatch(addPost(post))
+      })
+  }
+}
+
+function votePost(postId, voteScore) {
+  return {
+    type: VOTE_POST,
+    postId,
+    voteScore
+  }
+}
+
+export function handleVotePost(postId, option) {
+  return (dispatch) => {
+    const obj = {
+      option
+    }
+    return apiVotePost(postId, obj)
+      .then(post => {
+        dispatch(votePost(post.id, post.voteScore))
       })
   }
 }

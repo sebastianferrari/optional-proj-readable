@@ -1,12 +1,41 @@
 import React, { Component } from 'react'
 import './PostPreview.css'
-import { Badge, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap'
+import {
+  Badge,
+  Row,
+  Col,
+  OverlayTrigger,
+  Tooltip,
+  ButtonToolbar,
+  Glyphicon,
+  Button
+} from 'react-bootstrap'
 import { getDateFromTimestamp } from '../utils/helpers'
+import { handleVotePost } from '../actions/posts'
+import { connect } from 'react-redux'
 
 class PostPreview extends Component {
+  handleUpVote = (e) => {
+    e.preventDefault()
+    const option = 'upVote'
+    this.vote(option)
+  }
+
+  handleDownVote = (e) => {
+    e.preventDefault()
+    const option = 'downVote'
+    this.vote(option)
+  }
+
+  vote = (option) => {
+    const { post } = this.props
+    // console.log('FROM VOTE METHOD ', option)
+    this.props.votePost(post.id, option)
+  }
+
   render() {
     const post = this.props.post
-    
+
     const catTooltip = (
       <Tooltip id='category-tootip'>
         Category
@@ -34,7 +63,18 @@ class PostPreview extends Component {
               </div>
             </Col>
           </Row>
-          <p className='postpreview-body'>{post.body.length > 400 ? post.body.substring(0, 397) + '...' : post.body}</p>
+
+          <Row>
+            <Col xs={9} sm={10}>
+              <p className='postpreview-body'>{post.body.length > 400 ? post.body.substring(0, 397) + '...' : post.body}</p>
+            </Col>
+            <Col xs={3} sm={2} style={{ textAlign: 'center' }}>
+              <ButtonToolbar>
+                <Button bsSize='small' onClick={this.handleUpVote}><Glyphicon glyph='thumbs-up' /></Button>
+                <Button bsSize='small' onClick={this.handleDownVote}><Glyphicon glyph='thumbs-down' /></Button>
+              </ButtonToolbar>
+            </Col>
+          </Row>
 
           <Row className='postpreview-footer'>
             <Col sm={3}>
@@ -54,9 +94,9 @@ class PostPreview extends Component {
             </Col>
             <Col sm={3}>
               Vote score <Badge
-                style={ post.voteScore < 0
+                style={post.voteScore < 0
                   ? { backgroundColor: 'salmon' }
-                  : { backgroundColor: 'lightgreen', color: 'black' } }
+                  : { backgroundColor: 'lightgreen', color: 'black' }}
               >{post.voteScore}</Badge>
             </Col>
           </Row>
@@ -66,4 +106,10 @@ class PostPreview extends Component {
   }
 }
 
-export default PostPreview
+const mapDispatchToProps = dispatch => {
+  return {
+    votePost: (postId, option) => dispatch(handleVotePost(postId, option))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(PostPreview)

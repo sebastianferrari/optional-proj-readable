@@ -2,12 +2,13 @@ import {
   RECEIVE_POSTS, 
   DELETE_POST,
   EDIT_POST,
-  ADD_POST
+  ADD_POST,
+  VOTE_POST
 } from '../actions/actionTypes'
 import { updatePostObjectInArray } from '../utils/helpers'
 
 export default function posts(state = [], action) {
-  // console.log('FROM REDUCER ', action.post)
+  console.log('FROM REDUCER ', action)
   switch (action.type) {
     case RECEIVE_POSTS:
       return [
@@ -28,6 +29,18 @@ export default function posts(state = [], action) {
         ...state,
         action.post
       ]
+
+    case VOTE_POST:
+      return state.map(item => {
+        if (item.id !== action.postId) {
+            return item;
+        }
+        const { voteScore } = action
+        return {
+            ...item,
+            voteScore
+        };    
+    });
   
     default:
       return state
