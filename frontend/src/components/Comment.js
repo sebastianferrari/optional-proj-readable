@@ -15,7 +15,8 @@ import './Comment.css'
 import { getDateFromTimestamp, getTimestamp } from '../utils/helpers'
 import { 
   handleDeleteComment as handleDeleteCommentAction,
-  handleEditComment as handleEditCommentAction
+  handleEditComment as handleEditCommentAction,
+  handleVoteComment as handleVoteCommentAction
 } from '../actions/comments'
 import { confirmAlert } from 'react-confirm-alert'
 import { connect } from 'react-redux'
@@ -95,6 +96,23 @@ class Comment extends Component {
     }))
   }
 
+  handleUpVote = (e) => {
+    e.preventDefault()
+    const option = 'upVote'
+    this.vote(option)
+  }
+
+  handleDownVote = (e) => {
+    e.preventDefault()
+    const option = 'downVote'
+    this.vote(option)
+  }
+
+  vote = (option) => {
+    const { comment } = this.props
+    this.props.voteComment(comment.id, option)
+  }
+
   render() {
     const { comment } = this.props
 
@@ -129,6 +147,13 @@ class Comment extends Component {
             <br />
 
             <ButtonToolbar>
+              <Button bsSize='xsmall' onClick={this.handleUpVote}>
+                <Glyphicon glyph='thumbs-up' />
+              </Button>
+              <Button bsSize='xsmall' onClick={this.handleDownVote}>
+                <Glyphicon glyph='thumbs-down' />
+              </Button>
+
               <Button bsSize='xsmall' bsStyle='primary' onClick={this.handleEditComment}>
                 <Glyphicon glyph='edit' title='Edit Comment' />
               </Button>
@@ -169,7 +194,8 @@ class Comment extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     deleteComment: (commentId) => dispatch(handleDeleteCommentAction(commentId)),
-    editComment: (comment) => dispatch(handleEditCommentAction(comment))
+    editComment: (comment) => dispatch(handleEditCommentAction(comment)),
+    voteComment: (commentId, option) => dispatch(handleVoteCommentAction(commentId, option))
   }
 }
 

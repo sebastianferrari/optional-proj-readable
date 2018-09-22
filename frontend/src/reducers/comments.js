@@ -2,7 +2,8 @@ import {
   RECEIVE_COMMENTS,
   ADD_COMMENT,
   DELETE_COMMENT,
-  EDIT_COMMENT
+  EDIT_COMMENT,
+  VOTE_COMMENT
 } from '../actions/actionTypes'
 import { updateCommentObjectInArray } from '../utils/helpers'
 
@@ -31,6 +32,18 @@ export default function comments(state = [], action) {
 
     case EDIT_COMMENT:
       return updateCommentObjectInArray(state, action.comment)
+
+    case VOTE_COMMENT:
+      return state.map(item => {
+        if (item.id !== action.commentId) {
+            return item;
+        }
+        const { voteScore } = action
+        return {
+            ...item,
+            voteScore
+        };    
+    });
 
     default:
       return state

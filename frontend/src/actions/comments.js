@@ -3,13 +3,15 @@ import {
   RECEIVE_COMMENTS,
   ADD_COMMENT,
   DELETE_COMMENT,
-  EDIT_COMMENT
+  EDIT_COMMENT,
+  VOTE_COMMENT
 } from './actionTypes'
 import { 
   getAllPostComments,
   addComment as apiAddComment,
   deleteComment as apiDeleteComment,
-  editComment as apiEditComment
+  editComment as apiEditComment,
+  voteComment as apiVoteComment
 } from '../utils/api';
 
 function receiveComments(comments) {
@@ -80,6 +82,26 @@ export function handleEditComment(comment) {
     return apiEditComment(comment.id, obj)
       .then((comment) => {
         dispatch(editComment(comment))
+      })
+  }
+}
+
+function voteComment(commentId, voteScore) {
+  return {
+    type: VOTE_COMMENT,
+    commentId,
+    voteScore
+  }
+}
+
+export function handleVoteComment(commentId, option) {
+  return (dispatch) => {
+    const obj = {
+      option
+    }
+    return apiVoteComment(commentId, obj)
+      .then(comment => {
+        dispatch(voteComment(comment.id, comment.voteScore))
       })
   }
 }
