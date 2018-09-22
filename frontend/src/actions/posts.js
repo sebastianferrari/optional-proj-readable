@@ -9,7 +9,9 @@ import {
   DELETE_POST, 
   EDIT_POST,
   ADD_POST,
-  VOTE_POST
+  VOTE_POST,
+  ADD_COMMENT_TO_POST,
+  DELETE_COMMENT_FROM_POST
 } from './actionTypes'
 
 export function receivePosts(posts) {
@@ -88,5 +90,19 @@ export function handleVotePost(postId, option) {
       .then(post => {
         dispatch(votePost(post.id, post.voteScore))
       })
+  }
+}
+
+export function addCommentToPost(postId) {
+  return {
+    type: ADD_COMMENT_TO_POST,
+    postId
+  }
+}
+
+export function deleteCommentFromPost(postId) {
+  return {
+    type: DELETE_COMMENT_FROM_POST,
+    postId
   }
 }

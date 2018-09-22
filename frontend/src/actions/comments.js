@@ -13,6 +13,7 @@ import {
   editComment as apiEditComment,
   voteComment as apiVoteComment
 } from '../utils/api';
+import { addCommentToPost, deleteCommentFromPost } from './posts';
 
 function receiveComments(comments) {
   return {
@@ -24,10 +25,8 @@ function receiveComments(comments) {
 export function handleReceiveComments(postId) {
   return (dispatch) => {
     dispatch(showLoading())
-    // console.log('FROM ACTION POSTID ===> ', postId)
     return getAllPostComments(postId)
       .then(comments => {
-        // console.log({comments})
         dispatch(receiveComments(comments))
         dispatch(hideLoading())
       })
@@ -46,6 +45,7 @@ export function handleAddComment(comment) {
     return apiAddComment(comment)
       .then(comment => {
         dispatch(addComment(comment))
+        dispatch(addCommentToPost(comment.parentId))
       })
   }
 }
@@ -62,6 +62,7 @@ export function handleDeleteComment(commentId) {
     return apiDeleteComment(commentId)
       .then(comment => {
         dispatch(deleteComment(comment.id))
+        dispatch(deleteCommentFromPost(comment.parentId))
       })
   }
 }

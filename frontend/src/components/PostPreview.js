@@ -29,7 +29,7 @@ class PostPreview extends Component {
 
   vote = (option) => {
     const { post } = this.props
-    // console.log('FROM VOTE METHOD ', option)
+
     this.props.votePost(post.id, option)
   }
 

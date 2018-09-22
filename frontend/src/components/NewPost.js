@@ -132,7 +132,6 @@ class NewPost extends Component {
     }
 
     const { post } = this.state
-    // console.log({ post })
 
     if (post.id !== '') {
       return (

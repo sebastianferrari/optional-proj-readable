@@ -23,8 +23,6 @@ class PostComments extends Component {
   }
 
   handleAddComment = () => {
-    // console.log('Add Comment pressed!')
-
     this.handleOpen()
 
     const { postId } = this.props
@@ -34,8 +32,6 @@ class PostComments extends Component {
     comment.id = getNewId()
     comment.timestamp = getTimestamp()
     comment.parentId = postId
-
-    // console.log("ADDING COMMENT ", comment)
 
     this.props.addComment(comment)
 
@@ -78,7 +74,6 @@ class PostComments extends Component {
 
   render() {
     const { comments } = this.props
-
     const { comment } = this.state
 
     return (
@@ -95,7 +90,7 @@ class PostComments extends Component {
             </Button>
           </Col>
         </Row>
-        
+
         {comments.map(item => (
           <Comment comment={item} key={item.id} />
         ))}

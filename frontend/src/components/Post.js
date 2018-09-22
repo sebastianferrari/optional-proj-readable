@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Row, Col, Glyphicon } from 'react-bootstrap'
+import { Row, Col, Glyphicon, Badge } from 'react-bootstrap'
 import { getDateFromTimestamp } from '../utils/helpers'
-import { Badge } from 'react-bootstrap'
 import PostComments from './PostComments'
 import { Link, Redirect } from 'react-router-dom'
 import './Post.css'
@@ -45,7 +44,6 @@ class Post extends Component {
     }
 
     const { post } = this.props
-    console.log({ post })
 
     if (!post) {
       return (
@@ -93,10 +91,6 @@ class Post extends Component {
     )
   }
 }
-
-// should have a control to add a new comment.
-// implement comment form however you want (inline, modal, etc.)
-// comments should also have controls for editing or deleting
 
 function mapStateToProps({ posts }, props) {
   const { postId } = props.match.params

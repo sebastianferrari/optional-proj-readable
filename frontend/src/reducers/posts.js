@@ -3,12 +3,13 @@ import {
   DELETE_POST,
   EDIT_POST,
   ADD_POST,
-  VOTE_POST
+  VOTE_POST,
+  ADD_COMMENT_TO_POST,
+  DELETE_COMMENT_FROM_POST
 } from '../actions/actionTypes'
 import { updatePostObjectInArray } from '../utils/helpers'
 
 export default function posts(state = [], action) {
-  console.log('FROM REDUCER ', action)
   switch (action.type) {
     case RECEIVE_POSTS:
       return [
@@ -40,7 +41,31 @@ export default function posts(state = [], action) {
             ...item,
             voteScore
         };    
-    });
+      });
+
+    case ADD_COMMENT_TO_POST:
+      return state.map(item => {
+        if (item.id !== action.postId) {
+            return item;
+        }
+        const commentCount = item.commentCount + 1
+        return {
+            ...item,
+            commentCount
+        };    
+      });
+
+      case DELETE_COMMENT_FROM_POST:
+      return state.map(item => {
+        if (item.id !== action.postId) {
+            return item;
+        }
+        const commentCount = item.commentCount - 1
+        return {
+            ...item,
+            commentCount
+        };    
+      });
   
     default:
       return state
